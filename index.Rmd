@@ -16,7 +16,7 @@ site: bookdown::bookdown_site
 biblio-style: apalike
 ---
 
-# Setup
+# Agenda
 
 O minicurso "R pragmático" é baseado no `tidyverse` (universo "arrumado"), um conjunto de pacotes do R que auxiliam o estatístico / cientista de dados na execução de diversas tarefas corriqueiras de forma eficiente e unificada. Pense em eficiência, mas não no sentido de velocidade de execução de algoritmos, mas sim na velocidade de solução de problemas.
 
