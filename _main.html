@@ -225,7 +225,7 @@ div.tocify {
 
 
 <div id="agenda" class="section level1">
-<h1>Agenda</h1>
+<h1><span class="header-section-number">1</span> Agenda</h1>
 <p>Este minicurso de R será focado no <code>tidyverse</code> (universo “arrumado”), que conta um um conjunto de pacotes que auxiliam os pesquisadores a manipular suas bases de dados, preparando-as para que as análises sejam realizadas. Preparar a base de dados, geralmente, é a etapa que mais consome tempo do pesquisador. Portanto, ter uma ferramenta que torne essa tarefa mais eficiente é fundamental.</p>
 <p>Mais informações sobre o <code>tidyverse</code> estão disponíveis livro <a href="http://r4ds.had.co.nz/">R for data science</a>. Esse curso foi baseado no curso <a href="https://curso-r.github.io/ragmatic-book/">R pragmático</a>, que pode ser consultado e realizado sempre que necessário.</p>
 <p><strong>Público-alvo</strong></p>
@@ -242,6 +242,7 @@ div.tocify {
 </ul>
 <p><strong>Conteúdo:</strong></p>
 <ul>
+<li>Introdução ao R;</li>
 <li>Carga da Pesquisa Distrital por Amostra de Domicílios, de diversas formas;</li>
 <li>Introdução ao <code>tidyverse</code>;</li>
 <li>Operador <code>pipe</code>, manipulação de textos com o <code>stringr</code>e datas <code>lubridate</code>;</li>
@@ -250,9 +251,9 @@ div.tocify {
 </ul>
 </div>
 <div id="introducao" class="section level1">
-<h1>Introdução</h1>
+<h1><span class="header-section-number">2</span> Introdução</h1>
 <div id="por-que-usar-o-r-e-nao-outros-softwares" class="section level2">
-<h2>Por que usar o R e não outros softwares?</h2>
+<h2><span class="header-section-number">2.1</span> Por que usar o R e não outros softwares?</h2>
 <ul>
 <li><p>O R é um sistema para estatísticva computacional e gráfica;</p></li>
 <li><p>Um dos focos do R é análise de dados e a interatividade. Isso faz com que o R seja uma linguagem intuitiva e flexível.</p></li>
@@ -263,18 +264,18 @@ div.tocify {
 </ul>
 </div>
 <div id="rstudio" class="section level2">
-<h2>RStudio</h2>
+<h2><span class="header-section-number">2.2</span> RStudio</h2>
 <p>O RStudio é um ambiente integrado de desenvolvimento para a linguagem R. Ele ajuda a organizar os trabalhos desenvolvidos, dividindo os conteúdos em janelas. Ele, por exemplo, tem recursos que facilitam a escrita dos códigos (com atalhos de teclado e o recurso de auto completar). Além disso, possibilita que alguns recursos sejam utilizados via <em>click and point</em>. Acesse <a href="https://csgillespie.github.io/efficientR/set-up.html#rstudio">essa página</a> para maiores informações.</p>
 <p>Um recurso muito importante do RStudio, e amplamente utilizado na Codeplan, é a possibilidade de criar projetos. Nossos projetos são todos com controle de versão, realizados atravez do <a href="https://github.com/">github</a>. Caso você não tenha uma conta, aproveite essa oportunidade para fazê-la.</p>
 </div>
 <div id="rsutdio-server" class="section level2">
-<h2>Rsutdio Server</h2>
+<h2><span class="header-section-number">2.3</span> Rsutdio Server</h2>
 <p>A Codeplan conta com o RStudio server, o que significa que você pode acessar e trabalhar de qualquer máquina conectada à rede do GDF diretamente do navegador. Clique <a href="http://rserver.codeplan.df.gov.br/">aqui</a> para acessar o servidor.</p>
 <p>Uma vantagem de utilizar o Rserver é sua alta capacidade de processamente, contando atualmente com 32GB de memória ram e um processador de oito núcleos.</p>
 <p>Além disso, os pacotes instalados para a realização de um projeto ficam disponíveis para todos os demais usuários da empresa, sendo periodicamente atualizados pelo administrador do servidor. Isso facilita a reprodutibilidade dos códigos escritos por outros usuários.</p>
 </div>
 <div id="banco-de-dados-da-codeplan" class="section level2">
-<h2>Banco de dados da Codeplan</h2>
+<h2><span class="header-section-number">2.4</span> Banco de dados da Codeplan</h2>
 <p>A Codeplan conta com um banco de dados com as principais pesquisas da empresa já organizadas e prontas para uso, além de outras fontes de dados secundárias bastante utilizadas em pesquisas (e.g. IBGE). A vantagem de se utilizar um banco de dados centralizado é que todos usem a mesma fonte de informação para a produção de relatórios, garantindo consistência aos dados gerados.</p>
 <p>Além disso, as bases utilizadas em um trabalho ficam a disposição dos demais pesquisadores da empresa, evitando o trafego de informações localmente. Quanto mais usuários estiverem utilizando a mesma fonte de dados, mais fácil fica para validar as informações e proceder eventuais correções para todos os usuários da informação.</p>
 <p>Atualemente, o banco conta com as seguintes bases de dados:</p>
@@ -292,12 +293,12 @@ div.tocify {
 <p>As informações podem ser facilmente carregadas pelo R (ou qualquer outro pacote estatístico), por conexão ODBC – acrônimo para Open Database Connectivity. O Rserver já está configurado para fazer esta conexão, enquanto as máquinas locais podem ser facilmente configuradas seguindo <strong>esses passos (incluir informação)</strong>. As bases são acessadas com o pacote <code>RODBC</code>, através de consultas SQL (Structured Query Language), que nada mais é que uma linguagem estruturada para realizar consultas em banco de dados.</p>
 </div>
 <div id="github" class="section level2">
-<h2>GitHub</h2>
+<h2><span class="header-section-number">2.5</span> GitHub</h2>
 <p>O GitHub é uma plataforma online de compartilhamento e armazenamento de códigos. Projetos do GitHub são baseados no <code>git</code>, uma ferramenta de versionamento de software.</p>
 <p>A codeplan utiliza o GitHub para organizar e versinar seus projetos, de modo a mantê-los organizados e atualizados, sem o risco de perder alguma informação acidentalmente ou por alguma falha técnica. Outra vantagem é a característica colaborativa da plataforma, permitindo o acesso aos códigos de qualquer lugar por outros pesquisadores. Se o repositório for público, qualquer pessoa pode contribuir com os projetos, proporcionando ganhos a todos os futuros usuários.</p>
 </div>
 <div id="rmarkdown" class="section level2">
-<h2>RMarkdown</h2>
+<h2><span class="header-section-number">2.6</span> RMarkdown</h2>
 <p>O Markdown é um sistema para tornar a escrita e a leitura de textos mais simples. Ele adiciona as formatações correspondentes do formato em que você deseja apresentar seu texto de maneira simplificada, através de símbolos de teclado.</p>
 <p>No R, o RMarkdown, é um tipo de documento especial que contém tanto textos, no formato markdown, quanto códigos em R. Os códigos em R podem ser inseridos diretamente no texto ou separados em estruturas específicas (<em>chunks</em>). Os códigos são executados sempre que o documento é processado para algum formato específico, que pode HTML (como esse documento que você está lendo), em PDF (formato <code>Latex</code>) ou mesmo microsoft Word. Apresentações de slides também podem ser facilmente realizadas com o Rmarkdow, nos formatos HTML ou Latex.</p>
 <p>Alguns relatórios e apresentações da Codeplan são produzidos em Rmardonw. As apresentações da pesquisa <a href="https://codeplanprojetos.github.io/156_adasa_2018/">156</a> e da PDAD 2018 estão sendo produzidos com esta ferramenta.</p>
@@ -306,33 +307,143 @@ div.tocify {
 </div>
 </div>
 <div id="preliminares" class="section level1">
-<h1>Preliminares</h1>
+<h1><span class="header-section-number">3</span> Preliminares</h1>
 <p>Uma das funções mais básicas é instalar e carregar um pacote. Por exemplo:</p>
 <pre class="r"><code>#install.packages(&quot;tidyverse&quot;) # Instalar o pacote &quot;tidyverse&quot;
 library(tidyverse) # Carregar o pacote &quot;tidyverse&quot;</code></pre>
 <p>Repare que o caracter <span class="math inline">\(&quot;#&quot;\)</span> é utilizado para escrever comentários na codificação. Documentar bem seu código é fundamental para as pessoas que trabalham com você entendam o que foi realizado. Além disso, é fundamental para que uma tarefa que dependa desse código possa ser executada ou alterada por outro programador. Lembre-se que tudo o que produzimos é público e deve ser o mais acessível possível para qualquer pessoa!</p>
 <div id="operadores-basicos" class="section level2">
-<h2>Operadores básicos</h2>
+<h2><span class="header-section-number">3.1</span> Operadores básicos</h2>
 <p>Dentro do R, alguns operadores básicos são constantemente utilizados. Os mais comuns são:</p>
-<pre class="r"><code>pander::pander(
-data.frame(Operadores=c(&quot;+&quot;,&quot;-&quot;,&quot;*&quot;,&quot;/&quot;,&quot;^ ou **&quot;, &quot;%%&quot;,&quot;%/%&quot;),
-           Descrição=c(&quot;Adição&quot;,&quot;Subtração&quot;,&quot;Multiplicação&quot;,
-                       &quot;Divisão&quot;,&quot;Exponenciação&quot;,&quot;Resto da divisão&quot;,&quot;Divisão inteira&quot;)),
-caption=&quot;Operadores aritiméticos&quot;)</code></pre>
-<pre class="r"><code>pander::pander(
-data.frame(Operadores=c(&quot;&lt;&quot;,&quot;&lt;=&quot;,&quot;&gt;&quot;,&quot;&gt;=&quot;,&quot;==&quot;,&quot;!=&quot;,&quot;!X&quot;,&quot;X|Y&quot;,&quot;X&amp;Y&quot;),
-           Descrição=c(&quot;Menor&quot;,&quot;Menor ou igual&quot;,&quot;Maior&quot;,&quot;Maior ou igual&quot;,
-                       &quot;Exatamente igual a&quot;,&quot;Não é igual a&quot;,&quot;Não X&quot;,
-                       &quot;X ou Y&quot;,&quot;X e Y&quot;)),
-caption=&quot;Operadores lógicos&quot;)</code></pre>
-<pre class="r"><code>pander::pander(
-data.frame(Operadores=c(&quot;x &lt;- valor&quot;,&quot;x &lt;&lt;- valor&quot;,
-                        &quot;valor -&gt; x&quot;,&quot;valor -&gt;&gt; x&quot;,
-                        &quot;x = valor&quot;),
-           Descrição=c(&quot;Atribuir 'valor' a 'x'&quot;,&quot;Atribuir 'valor' a 'x'&quot;,
-                       &quot;Atribuir 'valor' a 'x'&quot;,&quot;Atribuir 'valor' a 'x'&quot;,
-                       &quot;Atribuir 'valor' a 'x'&quot;)),
-caption=&quot;Operadores de atribuição de valor&quot;)</code></pre>
+<table style="width:43%;">
+<caption>Operadores aritiméticos</caption>
+<colgroup>
+<col width="18%"></col>
+<col width="25%"></col>
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">Operadores</th>
+<th align="center">Descrição</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">+</td>
+<td align="center">Adição</td>
+</tr>
+<tr class="even">
+<td align="center">-</td>
+<td align="center">Subtração</td>
+</tr>
+<tr class="odd">
+<td align="center">*</td>
+<td align="center">Multiplicação</td>
+</tr>
+<tr class="even">
+<td align="center">/</td>
+<td align="center">Divisão</td>
+</tr>
+<tr class="odd">
+<td align="center">^ ou **</td>
+<td align="center">Exponenciação</td>
+</tr>
+<tr class="even">
+<td align="center">%%</td>
+<td align="center">Resto da divisão</td>
+</tr>
+<tr class="odd">
+<td align="center">%/%</td>
+<td align="center">Divisão inteira</td>
+</tr>
+</tbody>
+</table>
+<table style="width:46%;">
+<caption>Operadores lógicos</caption>
+<colgroup>
+<col width="18%"></col>
+<col width="27%"></col>
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">Operadores</th>
+<th align="center">Descrição</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">&lt;</td>
+<td align="center">Menor</td>
+</tr>
+<tr class="even">
+<td align="center">&lt;=</td>
+<td align="center">Menor ou igual</td>
+</tr>
+<tr class="odd">
+<td align="center">&gt;</td>
+<td align="center">Maior</td>
+</tr>
+<tr class="even">
+<td align="center">&gt;=</td>
+<td align="center">Maior ou igual</td>
+</tr>
+<tr class="odd">
+<td align="center">==</td>
+<td align="center">Exatamente igual a</td>
+</tr>
+<tr class="even">
+<td align="center">!=</td>
+<td align="center">Não é igual a</td>
+</tr>
+<tr class="odd">
+<td align="center">!X</td>
+<td align="center">Não X</td>
+</tr>
+<tr class="even">
+<td align="center">X|Y</td>
+<td align="center">X ou Y</td>
+</tr>
+<tr class="odd">
+<td align="center">X&amp;Y</td>
+<td align="center">X e Y</td>
+</tr>
+</tbody>
+</table>
+<table style="width:53%;">
+<caption>Operadores de atribuição de valor</caption>
+<colgroup>
+<col width="19%"></col>
+<col width="33%"></col>
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">Operadores</th>
+<th align="center">Descrição</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">x &lt;- valor</td>
+<td align="center">Atribuir ‘valor’ a ‘x’</td>
+</tr>
+<tr class="even">
+<td align="center">x &lt;&lt;- valor</td>
+<td align="center">Atribuir ‘valor’ a ‘x’</td>
+</tr>
+<tr class="odd">
+<td align="center">valor -&gt; x</td>
+<td align="center">Atribuir ‘valor’ a ‘x’</td>
+</tr>
+<tr class="even">
+<td align="center">valor -&gt;&gt; x</td>
+<td align="center">Atribuir ‘valor’ a ‘x’</td>
+</tr>
+<tr class="odd">
+<td align="center">x = valor</td>
+<td align="center">Atribuir ‘valor’ a ‘x’</td>
+</tr>
+</tbody>
+</table>
 <p>Agora vamos realizar algumas operações básicas com o R.</p>
 <pre class="r"><code>1 + 2 # Adição</code></pre>
 <pre class="r"><code>3 - 1 # Subtração</code></pre>
@@ -345,7 +456,7 @@ caption=&quot;Operadores de atribuição de valor&quot;)</code></pre>
 <pre class="r"><code>2+2|1+4==5 # 2 + 2 ou 1 + 4 são iguais a 5?</code></pre>
 </div>
 <div id="utilizar-chamada-de-funcoes" class="section level2">
-<h2>Utilizar chamada de funções</h2>
+<h2><span class="header-section-number">3.2</span> Utilizar chamada de funções</h2>
 <p>As funções no R são chamadas seguidas dos símbolos “()”. Algumas delas estão sempre disponíveis no R (como as “base functions”) e outros apenas disponíveis quando os pacotes são carregados.</p>
 <pre class="r"><code>sum(1,2) # Adição
 prod(2,2) # Multiplicação</code></pre>
@@ -354,7 +465,7 @@ prod(2,2) # Multiplicação</code></pre>
 <p>Apesar de ser necessário digitar mais caracteres para obter o resultado, chamar funções desta maneira tem duas vantages. A primeira é que fica claro, em cada passo, qual o pacote está sendo utilizado para executar determinada tarefa. Em segundo lugar, caso exista algum outro pacote com uma função de mesmo nome, não haverá o risco de utilizarmos a função errada para o problema que estamos tratando.</p>
 </div>
 <div id="criar-uma-funcao" class="section level2">
-<h2>Criar uma função</h2>
+<h2><span class="header-section-number">3.3</span> Criar uma função</h2>
 <p>Você pode criar suas próprias funções do R. Por exemplo, ao invés de utilizar a função de soma <code>sum</code>, nós podemos criar nossa própria função de soma.</p>
 <pre class="r"><code># Função para somar dois valores
 somar &lt;- 
@@ -368,8 +479,38 @@ somar &lt;-
 #Aplicar a função
 somar(2,4)</code></pre>
 </div>
+</div>
+<div id="operador-pipe" class="section level1">
+<h1><span class="header-section-number">4</span> Operador Pipe</h1>
+<p>Com o R, nós podemos “aninhar” várias funções ao mesmo tempo. Por exemplo, se quiser somar um vetor de números, tirar a raiz quadrada e arrendondar, podemos fazer tudo isso em uma única linha de comando.</p>
+<pre class="r"><code>x &lt;- c(1:10) # Criar o vetor numérico
+
+round(sqrt(sum(x))) # Calcular a raíz quadrada da soma do vetor x</code></pre>
+<p>Todavia, algumas vezes aninhar várias funções ao mesmo tempo pode deixar o código confuso. Vejamos um exemplo.</p>
+<pre class="r"><code># esfrie(asse(coloque(bata(acrescente(recipiente(rep(&quot;farinha&quot;, 2), &quot;água&quot;, &quot;fermento&quot;, &quot;leite&quot;, &quot;óleo&quot;), &quot;farinha&quot;, até = &quot;macio&quot;), duração = &quot;3min&quot;), lugar = &quot;forma&quot;, tipo = &quot;grande&quot;, untada = T), duração = &quot;50min&quot;), &quot;geladeira&quot;, &quot;20min&quot;)</code></pre>
+<p>Dentro de um mesmo código, é possível indentar as linhas, sempre após um novo argumento da função a ser separado por vígula.</p>
+<pre class="r"><code># esfrie(asse(coloque(bata(acrescente(recipiente(rep(&quot;farinha&quot;, 2), 
+#                                                &quot;água&quot;, &quot;fermento&quot;, 
+#                                                &quot;leite&quot;, &quot;óleo&quot;), 
+#                                     &quot;farinha&quot;, até = &quot;macio&quot;), 
+#                          duração = &quot;3min&quot;),
+#                     lugar = &quot;forma&quot;, tipo = &quot;grande&quot;, untada = T), 
+#             duração = &quot;50min&quot;), &quot;geladeira&quot;, &quot;20min&quot;)</code></pre>
+<p>Mesmo assim, ainda resta alguma dificuldade para realuzar a leitura do código de uma maneira mais clara e fluída. Essa é uma das vatagens de utilizar o operador pipe <code>%&gt;%</code>, que é bastante intuitivo. Ele realiza o seguinte comando: “use o resultado do lado esquedo como argumento da função do lado direito”. Para utlizá-lo, é necessário carregar algum pacote que leve o operador. Ao carregar o <code>tidyverse</code>, por exemplo, você já estará apto a usar o pipe.</p>
+<p>Vamos testar o operador pipe para calcular novamente a raiz quadrada da soma de um vetor.</p>
+<pre class="r"><code>x &lt;- c(1:10)
+
+x %&gt;% sum %&gt;% sqrt %&gt;% round</code></pre>
+<p>Observe que a escrita fica muito mais intuitiva. Para o caso do bolo:</p>
+<pre class="r"><code># recipiente(rep(&quot;farinha&quot;, 2), &quot;água&quot;, &quot;fermento&quot;, &quot;leite&quot;, &quot;óleo&quot;) %&gt;%
+#   acrescente(&quot;farinha&quot;, até = &quot;macio&quot;) %&gt;%
+#   bata(duração = &quot;3min&quot;) %&gt;%
+#   coloque(lugar = &quot;forma&quot;, tipo = &quot;grande&quot;, untada = T) %&gt;%
+#   asse(duração = &quot;50min&quot;) %&gt;%
+#   esfrie(&quot;geladeira&quot;, &quot;20min&quot;)</code></pre>
+<p>A utilização do pipe será muito importante para a manipulaçaõ das bases de dados, uma vez que, geralmente, são necessárias várias sequências de funções até que elas fiquem no formato desejado para análise.</p>
 <div id="onde-encontrar-ajuda" class="section level2">
-<h2>Onde encontrar ajuda</h2>
+<h2><span class="header-section-number">4.1</span> Onde encontrar ajuda</h2>
 <p>Há várias maneiras de encontrar ajuda sobre um pacote específico. Por exemplo, você pode acessar os detalhes da função <code>psych::describe</code> posicionado o cursor próximo a função e pressionar a tecla F11.</p>
 <p>Uma outra maneira é colocar um <span class="math inline">\(?\)</span> antes da função para a qual se quer ajuda. Uma terceira opção é utilizar a função <code>help</code>.</p>
 <pre class="r"><code>?psych::describe
@@ -389,10 +530,11 @@ RSiteSearch(&quot;{linear model}&quot;)</code></pre>
 </div>
 </div>
 <div id="teste" class="section level1">
-<h1>teste</h1>
+<h1><span class="header-section-number">5</span> teste</h1>
 <p>O <code>tidyverse</code> é um pacote do R que acopla vários outros pacotes da família <code>tidyverse</code>. Ele carrega os principais pacotes do R necessários para a manipulação de bases de dados.</p>
 <p>Ele foi pensado para resolver os problemas da maneira mais rápida possível do ponto de vista do usuário programador. Com esse conceito, é possível organizar a maioria dos bancos de dados utilizados em trabalhos reais.</p>
 <p>Sendo a etapa da preparação da base de dados uma das que mais consome tempo em uma pesquisa, velocidade de na progamação torna-se fundamental para ganhos de produtividade.</p>
+<!--chapter:end:index.Rmd-->
 </div>
 
 

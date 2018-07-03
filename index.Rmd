@@ -5,6 +5,7 @@ date: "`r Sys.Date()`"
 output:
   html_document:
     df_print: paged
+    number_sections: yes
     toc: yes
     toc_float: yes
 description: Minicurso de R aplicado a manipulação de microdados da Codeplan
@@ -16,153 +17,317 @@ site: bookdown::bookdown_site
 biblio-style: apalike
 ---
 
+```{r, echo=F}
+# Definir opções dos chunks
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE,
+                      results = "hide")
+```
+
 # Agenda
 
-O minicurso "R pragmático" é baseado no `tidyverse` (universo "arrumado"), um conjunto de pacotes do R que auxiliam o estatístico / cientista de dados na execução de diversas tarefas corriqueiras de forma eficiente e unificada. Pense em eficiência, mas não no sentido de velocidade de execução de algoritmos, mas sim na velocidade de solução de problemas.
+Este minicurso de R será focado no `tidyverse` (universo "arrumado"), que conta um um conjunto de pacotes que auxiliam os pesquisadores a manipular suas bases de dados, preparando-as para que as análises sejam realizadas. Preparar a base de dados, geralmente, é a etapa que mais consome tempo do pesquisador. Portanto, ter uma ferramenta que torne essa tarefa mais eficiente é fundamental.
 
-Atualmente, o melhor lugar para aprender sobre o `tidyverse` é no livro [R for data science](http://r4ds.had.co.nz/). Nesse minicurso abordamos partes desse livro e adicionamos outros, como práticas de modelgem preditiva e estudos de caso.
+Mais informações sobre o `tidyverse` estão disponíveis livro [R for data science](http://r4ds.had.co.nz/). Esse curso foi baseado no curso [R pragmático](https://curso-r.github.io/ragmatic-book/), que pode ser consultado e realizado sempre que necessário.
 
 **Público-alvo**
 
-- Estudantes de graduação em estatística que desejam ganhar tempo nos trabalhos da faculdade e entrar no mercado de trabalho com bons diferenciais.
-- Profissionais do mercado de trabalho que desejam inserir o R mo fluxo de atividades do setor/empresa.
-- Acadêmicos com interesse em tornar suas análises e códigos mais legíveis, reprodutíveis, eficientes e organizados.
-
-**Workflow das aulas:**
-
-- Aulas no laboratório de computação (CEC). Não precisa (mas pode) levar notebook.
-- Exercícios durante as aulas.
-- Leituras complementares e opcionais fora da sala de aula.
+- Novos estagiários da Codeplan.
+- Pesquisadores da Codeplan.
+- Pessoas com desejo de adquirir novos conhecimentos.
 
 **Requisitos básicos:**
 
-- Lógica de programação.
-- Veja [essa apresentação (aprox. 10 min)](http://curso-r.github.io/slides/aula_00_01_apresentacao.html) (slides: 13 ao 43).
-- Leia esse [post de blog (aprox. 5 min)](https://blog.rstudio.org/2016/09/15/tidyverse-1-0-0/).
-- Se quiser ganhar tempo, [crie uma conta no Github](http://github.com).
+- Noções de lógica de programação.
+- Noções básicas de estatística.
+- Noções básicas de inglês (para facilitar pesquisas e entendimento das funções).
 
 **Conteúdo:**
 
-- Primeiro dia (04/10): introdução ao `tidyverse`, o operador `pipe`, trabalhando textos com `stringr`, trabalhando datas com `lubridate`.
-- Segundo dia (05/10): transformação de dados com `dplyr` e `tidyr`, visualização de dados com `ggplot2`.
-- Terceiro dia (06/10): elaboração de relatórios com `knitr` e `rmarkdown`, modelagem preditiva (parte 1).
-- Quarto dia (07/10) modelagem preditiva (parte 2), case studies e feedback.
-R for Data Science
+- Introdução ao R;
+- Carga da Pesquisa Distrital por Amostra de Domicílios, de diversas formas;
+- Introdução ao `tidyverse`;
+- Operador `pipe`, manipulação de textos com o `stringr`e datas `lubridate`;
+- Transformação de dados com `dplyr` e `tidyr`, visualização de dados com `ggplot2`;
+- Elaboração de relatórios com `knitr` e `rmarkdown`.
 
-**Não vamos falar de:**
+# Introdução
 
-- Programação eficiente com R. Para isso, veja [esse livro](https://bookdown.org/csgillespie/efficientR/), que aborda temas importantíssimos como *profiling*, paralelização, `Rcpp`.
-- Estudos envolvendo "big data". Para isso estude sobre [sparklyr](http://spark.rstudio.com/) e [tensorflow](https://rstudio.github.io/tensorflow/) e [mongodb](https://gist.github.com/Btibert3/7751989).
+## Por que usar o R e não outros softwares?
 
-## Diferenças entre C/C++ e R
+- O R é um sistema para estatísticva computacional e gráfica;
 
-Na análise realizada na Seção  notei que boa parte dos inscritos têm background em C/C++. Em uma comparação simples, o foco do C é eficiência e transparência, enquanto o do R é análise de dados e interatividade. Isso faz com que as duas linguagens sejam bem diferentes!
+- Um dos focos do R é análise de dados e a interatividade. Isso faz com que o R seja uma linguagem intuitiva e flexível.
 
-Na prática, temos que
+- Código aberto: sem pirataria!
 
-- C é compilável, R é uma linguagem script.
-- R é uma linguagem funcional. Por exemplo, `(`, `&` e `+` são funções do R.
-- R é vetorizado. Observe esse sacrilégio
+- Constantemente atualizado
 
-```{r}
-a <- c(1, 2, 3)
-b <- c(1, 2, 3, 4, 5, 6)
-a + b 
-```
+- Comunidade ativa e cada vez mais ampla (estatística, economia, pscicologia, biologia etc.)
 
-Sim, isso funciona! O que acontece aqui é o fenômeno da *recliclagem* de vetores do R. Caso não esteja acostumado com essas idiossincrasias do R, veja [essa aula](http://curso-r.github.io/posts/aula01.html).
-
-- Você raramente usará loops (`for`, `while`) no R. Eles são ineficientes e não combinam com o estilo funcional da linguagem. Busque sempre realizar as operações com vetores, pois a maioria delas são implementadas em C e, portanto, mais eficientes.
-
-## Pacotes
-
-Se você não está no CEC, precisará instalar alguns pacotes para acompanhar o curso. Para instalar todas as dependências, rode
-
-```{r eval=FALSE}
-install.packages('devtools')
-devtools::install_github('curso-r/ragmatic')
-```
-
-Para visualizar todos os documentos que compõem esse livro, acesse [essa página](https://github.com/curso-r/ragmatic-book).
-
-chapter:end:index.Rmd
-
-# Princípios
-
-## O tidyverse
-
-O `tidyverse` é um pacote do R, cuja única função é carregar outros pacotes do R. O conjunto desses pacotes forma o `tidyverse`. É considerado um "universo" a parte do R pois todas suas ferramentas possuem formas de uso consistentes e funcionam muito bem em conjunto.
-
-Os princípios do `tidyverse` seguem abaixo.
-
-1. **Eficiência algorítmica vs eficiência de trabalho**. Suposição: o tempo que o estatísco gasta pensando em como realizar uma operação é mais importante do que o tempo que o computador gasta para realizar um cálculo.
-1. **Tidy data**. Princípio para arrumação de base de dados que resolve 90% dos problemas reais. O objetivo em *arrumação de dados* é extrair e transformar uma base de dados até que ela esteja em formato *tidy*. Essa é uma boa prática de análise de dados que economiza muito tempo em qualquer trabalho. Uma base de dados é considerada "tidy" se
-    - Cada observação é uma linha do bd.
-    - Cada variável é uma coluna do bd.
-    - Cada dado está numa célula do bd.
-
-1. **Utilização do operador `%>%` (pipe)**.  
-
-    > "No matter how complex and polished the individual operations are, it is often the quality of the glue that most directly determines the power of the system."  
-    > -- Hal Abelson
-    > 
-
-1. **Aparato mnemônico**. Pacotes baseados em teoria e API consistentes.
-1. **Minimalidade e funções puras**. Funções sem *side-effects*. Interagem com o mundo através de inputs e outputs. Encaixa perfeitamente com o princípio do pipe
-1. *workflow* para ciência de dados
-
-<img src="http://r4ds.had.co.nz/diagrams/data-science.png" style="width: 500px;display: block;margin-left: auto;margin-right: auto "/>
+- O R possui a possibilidade de adotar diversos pacotes. Estes pacotes são coleções de funções e/ou bases de dados desenvolvidos pela comunidade que utiliza a ferramenta. Or pacotes ficam disponíveis no [CRAN](https://cran.r-project.org/), que é o *Comprehensive R Archive Network*, i.e., uma coleção de sites da linguagem R e seus documentos relacionados.
 
 ## RStudio
 
-O RStudio é a melhor IDE para usar o R. O programa possui diversas vantagens e praticamente nenhuma desvantagem. Caso tenha interesse em se ambientar e entender as características do RStudio, veja [essa página](https://csgillespie.github.io/efficientR/set-up.html#rstudio). 
+O RStudio é um ambiente integrado de desenvolvimento para a linguagem R. Ele ajuda a organizar os trabalhos desenvolvidos, dividindo os conteúdos em janelas. Ele, por exemplo, tem recursos que facilitam a escrita dos códigos (com atalhos de teclado e o recurso de auto completar). Além disso, possibilita que alguns recursos sejam utilizados via *click and point*. Acesse  [essa página](https://csgillespie.github.io/efficientR/set-up.html#rstudio) para maiores informações.
 
-Uma importante funcionalidade do RStudio é a possibilidade de criar projetos. Uma estrutura recomendada para organização de pacotes segue abaixo.
+Um recurso muito importante do RStudio, e amplamente utilizado na Codeplan, é a possibilidade de criar projetos. Nossos projetos são todos com controle de versão, realizados atravez do [github](https://github.com/). Caso você não tenha uma conta, aproveite essa oportunidade para fazê-la.
 
-```{r, engine='bash', eval = FALSE}
-project/
-  - README.Rmd   # Descrição do pacote
-  - set-up.R     # Pacotes etc
-  - R/           # Código R, organizado com 0-load.R, 1-tidy.R, 2-vis.R, ...
-  - data/        # Dados (estruturados ou não)
-  - figures/     # gráficos (pode ficar dentro de output/)
-  - output/      # Relatórios em .Rmd, .tex etc
-  - project.Rproj
-```
+## Rsutdio Server
 
-Outra possível forma de estruturar um projeto é organizando-o como um pacote do R:
+A Codeplan conta com o RStudio server, o que significa que você pode acessar e trabalhar de qualquer máquina conectada à rede do GDF diretamente do navegador. Clique [aqui](http://rserver.codeplan.df.gov.br/) para acessar o servidor.
 
-```{r, engine='bash', eval = FALSE}
-project/
-  - README.md    # Descrição do pacote
-  - DESCRIPTION  # Metadados estruturados do pacote e dependências
-  - NAMESPACE    # importações e exportações do pacote
-  - vignettes/   # Relatórios em .Rmd
-  - R/           # Funções do R
-  - data/        # Dados estruturados (tidy data)
-  - data-raw/    # Dados não estruturados e arqs 0-load.R, 1-tidy.R, 2-vis.R, ...
-  - project.Rproj
-```
+Uma vantagem de utilizar o Rserver é sua alta capacidade de processamente, contando atualmente com 32GB de memória ram e um processador de oito núcleos.
 
-Para detalhes de como criar pacotes no R de forma eficiente, leia o [r-pkgs](http://r-pkgs.had.co.nz). Recomendo a adoção de um critério consistente para organização de projetos. O estatístico não pode perder tempo com a estruturação das pastas, então é melhor forçar uma estrutura pré-fixada do que planejar a melhor forma de organização para cada projeto.
+Além disso, os pacotes instalados para a realização de um projeto ficam disponíveis para todos os demais usuários da empresa, sendo periodicamente atualizados pelo administrador do servidor. Isso facilita a reprodutibilidade dos códigos escritos por outros usuários.
 
-## RMarkdown
+## Banco de dados da Codeplan
 
-O RMarkdown é um tipo de documento especial que contém tanto textos (em markdown) quanto códigos em R (em chunks). O markdown nada mais é do que um documento de texto com alguns padrões básicos de formatação, como negrito, itálico, títulos, subtítulos, itemização e referências cruzadas. Já os chunks são pedaços de códigos em R encapsulados por três crases "```". Os códigos são executados sempre que o documento é processado para algum formato específico.
+A Codeplan conta com um banco de dados com as principais pesquisas da empresa já organizadas e prontas para uso, além de outras fontes de dados secundárias bastante utilizadas em pesquisas (e.g. IBGE). A vantagem de se utilizar um banco de dados centralizado é que todos usem a mesma fonte de informação para a produção de relatórios, garantindo consistência aos dados gerados.
 
-A utilização do RMarkdown para produção de relatórios é essencial para o estatístico pragmático. O RMarkdown possui diversas vantagens:
+Além disso, as bases utilizadas em um trabalho ficam a disposição dos demais pesquisadores da empresa, evitando o trafego de informações localmente. Quanto mais usuários estiverem utilizando a mesma fonte de dados, mais fácil fica para validar as informações e proceder eventuais correções para todos os usuários da informação.
 
-1. **Simplicidade e foco**. Obriga o usuário a focar na análise e não na formatação do documento.
-1. **Versátil**. Pode ser utilizado para gerar documentos em LaTeX, Word, HTML e apresentações em beamer, pptx e HTML (de vários tipos). Pode ainda gerar sites, livros, dissertações de mestrado e até mesmo dashboards interativos.
-1. **Reprodutível**. O RMarkdown nada mais é que um arquivo de texto. Além disso, ele tenta te obrigar a fazer o documento mais autocontido possível. Assim, um documento .Rmd é fácil de compartilhar e de ser utilizado pelo receptor. Lembre-se, o receptor pode ser o futuro você! Vale enfatizar que a reprodutibilidade é considerada como um dos princípios fundamentais para a ciência. Então só de usar RMarkdown, você já está colaborando com a ciência :)
-1. **Eficiente**. É possível configurar e criar templates de análises para quaisquer tipos de aplicações e clientes. 
+Atualemente, o banco conta com as seguintes bases de dados:
 
-Para detalhes sobre como utilizar o RMarkdown, [leia aqui](http://r4ds.had.co.nz/r-markdown.html) [e aqui](http://rmarkdown.rstudio.com/lesson-1.html).
+- Pesquisa Distrital por Amostra de Domicílios;
+- Pesquisa Metropolitana por Amostra de Domicílios;
+- Pesquisa Nacional por Amostra de Domicílios;
+- Relação Anual de Informações Sociais;
+- Censo escolar;
+- Prova Brasil;
+- Enem;
+- IPCA;
+- Pesquisas 156
+
+As informações podem ser facilmente carregadas pelo R (ou qualquer outro pacote estatístico), por conexão ODBC -- acrônimo para Open Database Connectivity. O Rserver já está configurado para fazer esta conexão, enquanto as máquinas locais podem ser facilmente configuradas seguindo **esses passos (incluir informação)**. As bases são acessadas com o pacote `RODBC`, através de consultas SQL (Structured Query Language), que nada mais é que uma linguagem estruturada para realizar consultas em banco de dados.
 
 ## GitHub
 
-O GitHub é uma plataforma online para compartilhar códigos. Projetos do GitHub são baseados no `git`, uma ferramenta de versionamento de software.
+O GitHub é uma plataforma online de compartilhamento e armazenamento de códigos. Projetos do GitHub são baseados no `git`, uma ferramenta de versionamento de software.
 
-Utilizar o GitHub é uma boa prática de organizar projetos pois é uma forma de manter os códigos organizados e atualizados na web, sem o perigo de perder tudo acidentalmente. Esse site também é essencial para projetos colaborativos, pois aumenta a produtividade e permite que pessoas de todo lugar ajudem nos projetos. O `tidyverse` só é o que é hoje por conta do *social coding*.
+A codeplan utiliza o GitHub para organizar e versinar seus projetos, de modo a mantê-los organizados e atualizados, sem o risco de perder alguma informação acidentalmente ou por alguma falha técnica. Outra vantagem é a característica colaborativa da plataforma, permitindo o acesso aos códigos de qualquer lugar por outros pesquisadores. Se o repositório for público, qualquer pessoa pode contribuir com os projetos, proporcionando ganhos a todos os futuros usuários.
 
-Para detalhes, faça o [data science toolbox](https://www.coursera.org/learn/data-scientists-tools).
+## RMarkdown
+
+O Markdown é um sistema para tornar a escrita e a leitura de textos mais simples. Ele adiciona as formatações correspondentes do formato em que você deseja apresentar seu texto de maneira simplificada, através de símbolos de teclado.
+
+No R, o RMarkdown, é um tipo de documento especial que contém tanto textos, no formato markdown, quanto códigos em R. Os códigos em R podem ser inseridos diretamente no texto ou separados em estruturas específicas (*chunks*). Os códigos são executados sempre que o documento é processado para algum formato específico, que pode HTML (como esse documento que você está lendo), em PDF (formato `Latex`) ou mesmo microsoft Word. Apresentações de slides também podem ser facilmente realizadas com o Rmarkdow, nos formatos HTML ou Latex.
+
+Alguns relatórios e apresentações da Codeplan são produzidos em Rmardonw. As apresentações da pesquisa [156](https://codeplanprojetos.github.io/156_adasa_2018/) e da PDAD 2018 estão sendo produzidos com esta ferramenta.
+
+Suas principais vantagens são a **velocidade**, **reprodutibilidade** e ***eficiência** na produção destes relatórios. Por exemplo, a produção de relatórios para 31 Regiões Administrativas do DF a partir dos dados da PDAD 2018 fica muito mais rápida e padronizada.
+
+Para detalhes sobre como utilizar o RMarkdown, acesse [esse](http://r4ds.had.co.nz/r-markdown.html) e [esse](http://rmarkdown.rstudio.com/lesson-1.html) sites (em inglês).
+
+# Preliminares
+
+Uma das funções mais básicas é instalar e carregar um pacote. Por exemplo:
+
+```{r, warning=FALSE, message=FALSE}
+#install.packages("tidyverse") # Instalar o pacote "tidyverse"
+library(tidyverse) # Carregar o pacote "tidyverse"
+```
+
+Repare que o caracter $"#"$ é utilizado para escrever comentários na codificação. Documentar bem seu código é fundamental para as pessoas que trabalham com você entendam o que foi realizado. Além disso, é fundamental para que uma tarefa que dependa desse código possa ser executada ou alterada por outro programador. Lembre-se que tudo o que produzimos é público e deve ser o mais acessível possível para qualquer pessoa!
+
+## Operadores básicos
+
+Dentro do R, alguns operadores básicos são constantemente utilizados. Os mais comuns são:
+
+```{r, echo=F,results='asis'}
+pander::pander(
+data.frame(Operadores=c("+","-","*","/","^ ou **", "%%","%/%"),
+           Descrição=c("Adição","Subtração","Multiplicação",
+                       "Divisão","Exponenciação","Resto da divisão","Divisão inteira")),
+caption="Operadores aritiméticos")
+```
+
+```{r, echo=F,results='asis'}
+pander::pander(
+data.frame(Operadores=c("<","<=",">",">=","==","!=","!X","X|Y","X&Y"),
+           Descrição=c("Menor","Menor ou igual","Maior","Maior ou igual",
+                       "Exatamente igual a","Não é igual a","Não X",
+                       "X ou Y","X e Y")),
+caption="Operadores lógicos")
+```
+
+```{r, echo=F,results='asis'}
+pander::pander(
+data.frame(Operadores=c("x <- valor","x <<- valor",
+                        "valor -> x","valor ->> x",
+                        "x = valor"),
+           Descrição=c("Atribuir 'valor' a 'x'","Atribuir 'valor' a 'x'",
+                       "Atribuir 'valor' a 'x'","Atribuir 'valor' a 'x'",
+                       "Atribuir 'valor' a 'x'")),
+caption="Operadores de atribuição de valor")
+```
+
+Agora vamos realizar algumas operações básicas com o R.
+
+```{r warning=FALSE, message=FALSE}
+1 + 2 # Adição
+```
+
+```{r warning=F,message=F}
+3 - 1 # Subtração
+```
+
+```{r warning=FALSE, message=FALSE}
+2 * 2 # Multiplicação
+```
+
+```{r warning=FALSE, message=FALSE}
+1 / 4 # Divisão
+```
+
+O R realiza operações matemáticas básicas diretamente no console, como adição, subtração, multiplicação e divisão. Ele também realiza testes lógicos.
+
+```{r, warning=F,message=F}
+2+2==4 # 2 + 2 é igual a 4?
+```
+
+```{r, warning=F,message=F}
+2+2==5 # 2 + 2 é igual a 5? 
+```
+
+```{r, warning=F,message=F}
+2+2&1+3==4 # 2 + 2 e 1 + 3 são iguais a 4?
+```
+
+```{r, warning=F,message=F}
+2+2|1+4==5 # 2 + 2 ou 1 + 4 são iguais a 5?
+```
+
+## Utilizar chamada de funções
+
+As funções no R são chamadas seguidas dos símbolos "()". Algumas delas estão sempre disponíveis no R (como as "base functions") e outros apenas disponíveis quando os pacotes são carregados.
+
+```{r, warning=FALSE, message=FALSE}
+sum(1,2) # Adição
+prod(2,2) # Multiplicação
+```
+
+Algumas funções podem ser chamadas diretamente de seus pacotes, sem que seja necessário carregar o respectivo pacote.
+
+```{r, warning=FALSE, message=FALSE,results='hide'}
+psych::describe(c(1,2)) # Utilizando a função describe, do pacote "psych", sem carregálo
+```
+
+Apesar de ser necessário digitar mais caracteres para obter o resultado, chamar funções desta maneira tem duas vantages. A primeira é que fica claro, em cada passo, qual o pacote está sendo utilizado para executar determinada tarefa. Em segundo lugar, caso exista algum outro pacote com uma função de mesmo nome, não haverá o risco de utilizarmos a função errada para o problema que estamos tratando.
+
+## Criar uma função
+
+Você pode criar suas próprias funções do R. Por exemplo, ao invés de utilizar a função de soma `sum`, nós podemos criar nossa própria função de soma.
+
+```{r, warning=FALSE, message=FALSE, results='hide'}
+# Função para somar dois valores
+somar <- 
+  function(x,y){
+  z = x + y
+  
+  print(z)
+  
+  }
+
+#Aplicar a função
+somar(2,4)
+```
+
+# Operador Pipe
+
+Com o R, nós podemos "aninhar" várias funções ao mesmo tempo. Por exemplo, se quiser somar um vetor de números, tirar a raiz quadrada e arrendondar, podemos fazer tudo isso em uma única linha de comando.
+
+```{r}
+x <- c(1:10) # Criar o vetor numérico
+
+round(sqrt(sum(x))) # Calcular a raíz quadrada da soma do vetor x
+```
+
+Todavia, algumas vezes aninhar várias funções ao mesmo tempo pode deixar o código confuso. Vejamos um exemplo.
+
+```{r}
+# esfrie(asse(coloque(bata(acrescente(recipiente(rep("farinha", 2), "água", "fermento", "leite", "óleo"), "farinha", até = "macio"), duração = "3min"), lugar = "forma", tipo = "grande", untada = T), duração = "50min"), "geladeira", "20min")
+```
+
+Dentro de um mesmo código, é possível indentar as linhas, sempre após um novo argumento da função a ser separado por vígula.
+
+```{r}
+# esfrie(asse(coloque(bata(acrescente(recipiente(rep("farinha", 2), 
+#                                                "água", "fermento", 
+#                                                "leite", "óleo"), 
+#                                     "farinha", até = "macio"), 
+#                          duração = "3min"),
+#                     lugar = "forma", tipo = "grande", untada = T), 
+#             duração = "50min"), "geladeira", "20min")
+```
+
+Mesmo assim, ainda resta alguma dificuldade para realuzar a leitura do código de uma maneira mais clara e fluída. Essa é uma das vatagens de utilizar o operador pipe `%>%`, que é bastante intuitivo. Ele realiza o seguinte comando: "use o resultado do lado esquedo como argumento da função do lado direito". Para utlizá-lo, é necessário carregar algum pacote que leve o operador. Ao carregar o `tidyverse`, por exemplo, você já estará apto a usar o pipe.
+
+Vamos testar o operador pipe para calcular novamente a raiz quadrada da soma de um vetor.
+
+```{r}
+x <- c(1:10)
+
+x %>% sum %>% sqrt %>% round
+```
+
+Observe que a escrita fica muito mais intuitiva. Para o caso do bolo:
+
+```{r}
+# recipiente(rep("farinha", 2), "água", "fermento", "leite", "óleo") %>%
+#   acrescente("farinha", até = "macio") %>%
+#   bata(duração = "3min") %>%
+#   coloque(lugar = "forma", tipo = "grande", untada = T) %>%
+#   asse(duração = "50min") %>%
+#   esfrie("geladeira", "20min")
+```
+
+A utilização do pipe será muito importante para a manipulaçaõ das bases de dados, uma vez que, geralmente, são necessárias várias sequências de funções até que elas fiquem no formato desejado para análise.
+
+## Onde encontrar ajuda
+
+Há várias maneiras de encontrar ajuda sobre um pacote específico. Por exemplo, você pode acessar os detalhes da função `psych::describe` posicionado o cursor próximo a função e pressionar a tecla F11.
+
+Uma outra maneira é colocar um $?$ antes da função para a qual se quer ajuda. Uma terceira opção é utilizar a função `help`.
+
+```{r warning=FALSE, message=FALSE}
+?psych::describe
+help("describe")
+help(describe)
+?psych
+help("psych")
+help(psych)
+```
+
+Para uma pesquisa mais ampla, que irá escanear todos os documentos do pacote instalado na sua biblioteca, você pode utiliza ro símbolo $??$ antes da função ou utilizar diretamente a função `help.search`
+
+```{r, warning=FALSE, message=FALSE}
+??psych
+help.search("psych")
+```
+
+Por fim, outra forma de realizar pesquisas, utilizando a internet é com a função `RSiteSearch`.
+
+```{r warning=FALSE, message=FALSE}
+RSiteSearch("psych")
+RSiteSearch("{linear model}")
+```
+
+O site [stackoverflow](https://stackoverflow.com/questions/tagged/r) é outra excelente fonte de informação. É muito possível que a dúvida ou o problema que você está encontrando em alguma programação já foi enfrentado por outro usuário. Assim, basta pesquisar sobre sua dúvida neste site (geralmente, feitas e respondidas em inglês).
+
+Por fim, uma boa e velha máquina de buscas é fundamental. Quase todas as repostas você encontrará lá.
+
+
+
+# teste
+
+O `tidyverse` é um pacote do R que acopla vários outros pacotes da família `tidyverse`. Ele carrega os principais pacotes do R necessários para a manipulação de bases de dados.
+
+Ele foi pensado para resolver os problemas da maneira mais rápida possível do ponto de vista do usuário programador. Com esse conceito, é possível organizar a maioria dos bancos de dados utilizados em trabalhos reais.
+
+Sendo a etapa da preparação da base de dados uma das que mais consome tempo em uma pesquisa, velocidade de na progamação torna-se fundamental para ganhos de produtividade.
+
+
+
+
+
+
