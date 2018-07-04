@@ -1,0 +1,4 @@
+# Compartilhamento da unidade C em 320cdl077
+//320cdl077.codeplandf.gdfnet.df/C$ /home/kidlulu/c_320cdl077 cifs user,uid=1000,rw,suid,username=35866,password=Natal2016,domain=CODEPLANDF 0 0
+# Compartilhamento da unidade D em 320cdl077
+//320cdl077.codeplandf.gdfnet.df/D$ /home/kidlulu/d_320cdl077 cifs user,uid=1000,rw,suid,username=35866,password=Natal2016,domain=CODEPLANDF 0 0
