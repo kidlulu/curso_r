@@ -21,6 +21,8 @@ biblio-style: apalike
 # Definir opções dos chunks
 knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE,
                       results = "hide")
+
+setwd("~/curso_r")
 ```
 
 # Agenda
@@ -76,7 +78,7 @@ Um recurso muito importante do RStudio, e amplamente utilizado na Codeplan, é a
 
 A Codeplan conta com o RStudio server, o que significa que você pode acessar e trabalhar de qualquer máquina conectada à rede do GDF diretamente do navegador. Clique [aqui](http://rserver.codeplan.df.gov.br/) para acessar o servidor.
 
-Uma vantagem de utilizar o Rserver é sua alta capacidade de processamente, contando atualmente com 32GB de memória ram e um processador de oito núcleos.
+Uma vantagem de utilizar o Rserver é sua alta capacidade de processamente, contando atualmente com 32GB de memória ram e um processador de 32 núcleos.
 
 Além disso, os pacotes instalados para a realização de um projeto ficam disponíveis para todos os demais usuários da empresa, sendo periodicamente atualizados pelo administrador do servidor. Isso facilita a reprodutibilidade dos códigos escritos por outros usuários.
 
@@ -120,6 +122,21 @@ Para detalhes sobre como utilizar o RMarkdown, acesse [esse](http://r4ds.had.co.
 
 # Preliminares
 
+## Estrutura do RStudio Server
+
+O primeiro passo é efetuarmos o login no RStudio server da Codeplan. Para isso, acesse o site do [servidor](http://rserver.codeplan.df.gov.br/).
+
+<img src="figuras/login.PNG" style="width: 800px;display: block;margin-left: auto;margin-right: auto "/>
+
+Entre com suas credenciais e faça o login.
+
+O RStudio server estará dividido em quatro painéis: o superior à esquerda apresenta os scripts abertos para uso; o inferior a esquerda apresenta o console, local em que os comandos e seus resultados são apresentados. Nesse painel há também uma aba para o terminal do Linux; o supeior direito apresenta o ambiente, com os objetos ativos na sessão. Há mais quatro abas, com o histórico dos comandos executados, as conexões, build (para desenvolvimentos) e o Git; por fim, o inferior direito apresenta o diretório de trabalho, com as pastas e arquivos. Há ainda mais quatro abas, que apresentam os plots gerados, os pacotes disponíveis na biblioteca, a janela de ajuda e a janela de visualização (utilizadas por alguns pacotes para mostrar conteúdos da web).
+
+<img src="figuras/Rserver.png" style="width: 800px;display: block;margin-left: auto;margin-right: auto "/>
+
+Na parte superior, existe uma barra de tarefas, com a qual você pode criar novos scripts, projetos, abrir arquivos, executar buscas etc. São formas de você executar funções por click-and-point.
+
+## Pacotes
 Uma das funções mais básicas é instalar e carregar um pacote. Por exemplo:
 
 ```{r, warning=FALSE, message=FALSE}
@@ -242,7 +259,7 @@ x <- c(1:10) # Criar o vetor numérico
 round(sqrt(sum(x))) # Calcular a raíz quadrada da soma do vetor x
 ```
 
-Todavia, algumas vezes aninhar várias funções ao mesmo tempo pode deixar o código confuso. Vejamos um exemplo.
+Todavia, algumas vezes aninhar várias funções ao mesmo tempo pode deixar o código confuso. Vejamos um exemplo, com uma função para preparação de um bolo.^[Exemplo extraído de: https://curso-r.github.io/ragmatic-book/principios.html#pipe.]
 
 ```{r}
 # esfrie(asse(coloque(bata(acrescente(recipiente(rep("farinha", 2), "água", "fermento", "leite", "óleo"), "farinha", até = "macio"), duração = "3min"), lugar = "forma", tipo = "grande", untada = T), duração = "50min"), "geladeira", "20min")
@@ -316,15 +333,17 @@ O site [stackoverflow](https://stackoverflow.com/questions/tagged/r) é outra ex
 
 Por fim, uma boa e velha máquina de buscas é fundamental. Quase todas as repostas você encontrará lá.
 
+# Carga da PDAD 2015
 
+Vamos iniciar a atividade de utilizar a base de dados carregando a Pesquisa Distrital por Amostra de Domicílios 2015. A PDAD é uma pesquisa amostral conduzida pela Codeplan a cada dois anos, com representatividade para as 31 Regiões Administrativas, tendo por objetivo traçar as principais características dos domicílios e pessoas destas localidades.
 
-# teste
+Vamos carregar a PDAD 2015 de quatro maneiras diferentes. A PDAD 2015 está disponível, no fomato `.csv` no site da Codeplan, neste [endereço](http://www.codeplan.df.gov.br/pdad-2015/). São quatro arquivos: dois deles contendo os microdados, referentes aos domicílios e aos moradores e seus respectivos dicionários.
 
-O `tidyverse` é um pacote do R que acopla vários outros pacotes da família `tidyverse`. Ele carrega os principais pacotes do R necessários para a manipulação de bases de dados.
+As bases de dados com microdados usualmente são separadas em tantos arquivos quanto necessário, seguindo sempre de uma documentação que detalha os aspectos técnicos, fornecendo informações para a manipulação dos dados.
 
-Ele foi pensado para resolver os problemas da maneira mais rápida possível do ponto de vista do usuário programador. Com esse conceito, é possível organizar a maioria dos bancos de dados utilizados em trabalhos reais.
+Após baixar os arquivos, vamos carregá-los no R server.
 
-Sendo a etapa da preparação da base de dados uma das que mais consome tempo em uma pesquisa, velocidade de na progamação torna-se fundamental para ganhos de produtividade.
+<img src="figuras/carregar.png" style="width: 800px;display: block;margin-left: auto;margin-right: auto "/>
 
 
 
